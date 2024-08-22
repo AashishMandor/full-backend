@@ -22,7 +22,7 @@ router.put('/:id', updatestudent);
 //http://localhost:5000/api/student/1
 
 // Route to get student details by ID
-router.get('/:id', getstudentById);
+router.get('/detail/:id', getstudentById);
 //http://localhost:5000/api/student/2
 
 // Route to get all students

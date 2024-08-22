@@ -5,6 +5,7 @@ import express from 'express';
 import adminRoutes from './routes/adminRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 
+import classRoutes from './routes/ClassRoutes.js';
 import studentRoutes from './routes/studentRoutes.js';
 import teacherRoutes from './routes/teacherRoutes.js';
 // Load environment variables
@@ -21,6 +22,7 @@ app.use('/api/attendance', attendanceRoutes);
 //localhost:5000/api/attendance/mark
 //localhost:5000/api/attendance/teacher/1
 app.use('/api/student', studentRoutes);
+app.use('/api/class', classRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

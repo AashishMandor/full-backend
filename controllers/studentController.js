@@ -1,5 +1,8 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import Sattendance from "../models/Sattendance.js";
 import Student from "../models/Student.js";
+
 
 export const createstudents = async (req, res) => {
     const { name, email, password, age, address, className } = req.body;
@@ -116,27 +119,29 @@ export const updatestudent = async (req, res) => {
     try {
       const { email, password } = req.body;
   
-      // Find the student
+      // Find the student by email
       const student = await Student.findOne({ where: { email } });
-     
+      
       if (!student) {
-      res.status(400).json({ message: 'student not found' });
-      console.log(error);
-        
+        return res.status(400).json({ message: 'Student not found' });
       }
   
       // Compare passwords
-      const isMatch = await bcrypt.compare(password, Student.password);
+      const isMatch = await bcrypt.compare(password, student.password); // Use 'student.password'
       if (!isMatch) {
         return res.status(400).json({ message: 'Invalid credentials' });
       }
   
-    
+      // Generate a token (assuming you want to use JWT for authentication)
+      const token = jwt.sign(
+        { id: student.id, email: student.email },
+        'your_secret_key', // Replace with your actual secret key
+        { expiresIn: '1h' } // Token expiration time
+      );
   
       res.status(200).json({ message: 'Logged in successfully', token });
     } catch (error) {
       res.status(500).json({ message: 'Something went wrong', error });
-
       console.log(error);
     }
   };
@@ -155,7 +160,7 @@ export const getAllStudentsWithAttendance = async (req, res) => {
         res.status(200).json(students);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch students' });
-        console.log(error);
+        console.log(error );
     }
 };
   
