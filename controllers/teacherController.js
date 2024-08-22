@@ -87,8 +87,8 @@ export const getAllTeachers = async (req, res) => {
     res.status(500).json({ message: 'Something went wrong', error });
   }
 };
-
 // Delete a teacher
+
 export const deleteTeacher = async (req, res) => {
   const { id } = req.params;
 
