@@ -4,8 +4,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import adminRoutes from './routes/adminRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
-import teacherRoutes from './routes/teacherRoutes.js';
 
+import studentRoutes from './routes/studentRoutes.js';
+import teacherRoutes from './routes/teacherRoutes.js';
 // Load environment variables
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use('/api/teachers', teacherRoutes);// post == localhost:5000/api/teachers/=
 app.use('/api/attendance', attendanceRoutes);
 //localhost:5000/api/attendance/mark
 //localhost:5000/api/attendance/teacher/1
+app.use('/api/student', studentRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
